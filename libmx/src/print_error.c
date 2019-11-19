@@ -7,8 +7,7 @@ void mx_printerr(const char *s) {
 
 void print_error(enum m_eror errors, char **a, int i) {
     if (errors == INVALID_NUMBER) {
-        mx_printerr("usage: ./pathfinder [filename]");
-        mx_printerr("\n");
+        mx_printerr("usage: ./pathfinder [filename]\n");
         exit(1);
     } else if (errors == NOT_EXIST) {
         mx_printerr("error: file ");

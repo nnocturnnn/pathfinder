@@ -5,6 +5,7 @@ INC = ./inc/libmx.h
 HEADTMP = ./libmx.h
 
 SRC = ./making_int_matrix.c \
+	./path_int.c \
 	./mx_arr_size.c \
 	./mx_atoi.c \
 	./mx_binary_search.c \
@@ -67,6 +68,7 @@ SRC = ./making_int_matrix.c \
 	./reading_strarr.c \
 
 SRCS = ./src/making_int_matrix.c \
+	./src/path_int.c \
 	./src/mx_arr_size.c \
 	./src/mx_atoi.c \
 	./src/mx_binary_search.c \
@@ -129,6 +131,7 @@ SRCS = ./src/making_int_matrix.c \
 	./src/reading_strarr.c 
 
 OBJ = ./making_int_matrix.o \
+	./path_int.o \
 	./mx_arr_size.o \
 	./mx_atoi.o \
 	./mx_binary_search.o \
@@ -191,6 +194,7 @@ OBJ = ./making_int_matrix.o \
 	./reading_strarr.o \
 
 OBJO = ./obj/making_int_matrix.o \
+	./obj/path_int.o \
 	./obj/mx_arr_size.o \
 	./obj/mx_atoi.o \
 	./obj/mx_binary_search.o \

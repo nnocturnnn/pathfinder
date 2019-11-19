@@ -38,6 +38,10 @@ char **read_arguments(char **str, int islands);
 int **create_zero_matrix(int islands);
 int **create_matrix(char **islands, char **islands_tmp, int islands_int);
 int **crete_dist_matrix(int **matrix, int size);
+int **path_int(int **matrix, int **min_dist, int begin_index, int end, int size);
+void mx_char_dist(int **matrix,int **min_dist, char **islands, int begin_index, int end);
+char **mx_char_route(int **matrix,int **min_dist, char **islands, int begin_index, int end);
+int mx_count_short_way(int **matrix, int **min_dist,int begin_index, int end, int islands_count);
 
 // Utils pack:
 void mx_printchar(char c);
