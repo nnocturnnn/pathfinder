@@ -18,6 +18,15 @@ enum m_eror{
     ISLANDS_INVALID
 };
 
+typedef struct graf_data {
+    int size;
+    int **matrix;
+    int **dist;
+    char **top;
+    char **file; //file to print
+} tool;
+
+
 typedef struct s_list {
     void *data;
     struct s_list *next;
@@ -32,15 +41,20 @@ int mx_atoi(const char *str);
 bool mx_isalpha(int c);
 bool mx_line_check(char *str, int line);
 void mx_firstline_check(char *str);
-void first_word(char *str, char **result, int *num);
-void second_word(char *str, char **result, int *num);
-char **read_arguments(char **str, int islands);
+char **read_arguments(char **str, int size);
 int **create_zero_matrix(int islands);
 int **create_matrix(char **islands, char **islands_tmp, int islands_int);
 int **crete_dist_matrix(int **matrix, int size);
-int **path_int(int **matrix, int **min_dist, int begin_index, int end, int size);
-void mx_char_dist(int **matrix,int **min_dist, char **islands, int begin_index, int end);
-char **mx_char_route(int **matrix,int **min_dist, char **islands, int begin_index, int end);
+int mx_arr_size(char **arr);
+int mx_count_short_ways(tool *d,int begin, int end);
+void mx_del_intarr(int ***arr);
+//
+void mx_print_distance(tool *d, int *path, int i, int j);
+int mx_count_short_ways(tool *d, int a, int b);
+int mx_next_top(tool *data, int from, int to, int paths);
+int mx_previos_top(tool *data, int from, int to);
+char **mx_file_to_print(tool *d, int **path, int num);
+void mx_checked(char *str, char *argv);
 
 // Utils pack:
 void mx_printchar(char c);
@@ -59,7 +73,6 @@ int mx_bubble_sort(char **arr, int size);
 int mx_quicksort(char **arr, int left, int right);
 
 // String pack:
-int mx_arr_size(char **arr);
 int mx_strlen(const char *s);
 void mx_swap_char(char *s1, char *s2);
 void mx_str_reverse(char *s);
@@ -84,7 +97,6 @@ char *mx_strjoin(const char *s1, const char *s2);
 char *mx_file_to_str(const char *file);
 int mx_read_line(char **lineptr, int buf_size, char delim, const int fd);
 char *mx_replace_substr(const char *str, const char *sub, const char *replace);
-void mx_print_int_arr(int *arr, char *delim, int size);
 
 // Memory pack:
 void *mx_memset(void *b, int c, size_t len);

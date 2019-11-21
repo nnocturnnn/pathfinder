@@ -5,7 +5,12 @@ INC = ./inc/libmx.h
 HEADTMP = ./libmx.h
 
 SRC = ./making_int_matrix.c \
-	./path_int.c \
+	./mx_checked.c \
+	./mx_print_distance.c \
+	./mx_count_short_ways.c \
+	./mx_next_top.c \
+	./mx_previos_top.c \
+	./mx_file_to_print.c \
 	./mx_arr_size.c \
 	./mx_atoi.c \
 	./mx_binary_search.c \
@@ -68,7 +73,12 @@ SRC = ./making_int_matrix.c \
 	./reading_strarr.c \
 
 SRCS = ./src/making_int_matrix.c \
-	./src/path_int.c \
+	./src/mx_checked.c \
+	./src/mx_print_distance.c \
+	./src/mx_count_short_ways.c \
+	./src/mx_next_top.c \
+	./src/mx_previos_top.c \
+	./src/mx_file_to_print.c \
 	./src/mx_arr_size.c \
 	./src/mx_atoi.c \
 	./src/mx_binary_search.c \
@@ -131,7 +141,12 @@ SRCS = ./src/making_int_matrix.c \
 	./src/reading_strarr.c 
 
 OBJ = ./making_int_matrix.o \
-	./path_int.o \
+	./mx_checked.o \
+	./mx_print_distance.o \
+	./mx_count_short_ways.o \
+	./mx_next_top.o \
+	./mx_previos_top.o \
+	./mx_file_to_print.o \
 	./mx_arr_size.o \
 	./mx_atoi.o \
 	./mx_binary_search.o \
@@ -194,7 +209,12 @@ OBJ = ./making_int_matrix.o \
 	./reading_strarr.o \
 
 OBJO = ./obj/making_int_matrix.o \
-	./obj/path_int.o \
+	./obj/mx_checked.o \
+	./obj/mx_print_distance.o \
+	./obj/mx_count_short_ways.o \
+	./obj/mx_next_top.o \
+	./obj/mx_previos_top.o \
+	./obj/mx_file_to_print.o \
 	./obj/mx_arr_size.o \
 	./obj/mx_atoi.o \
 	./obj/mx_binary_search.o \

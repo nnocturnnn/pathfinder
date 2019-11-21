@@ -1,79 +1,103 @@
 #include "libmx.h"
 
-//static void final_print(char **islands, int **min_dist, int **matrix);
+static int **mx_int_route(tool *data, int num, int from, int to);
+static tool *inicialize(int s, int **m, int **d, char **t);
+static void one_print(tool *d, int *path, int i, int j);
+static void final_print(tool *d);
 
 int main(int n, char **argv) {
-    if (n != 2) 
-        print_error(INVALID_NUMBER, NULL, 0);
-    char *file_str = mx_file_to_str(argv[1]);
-    if (file_str == NULL)
-        print_error(NOT_EXIST, argv, 0);
-    if (mx_strlen(file_str) == 0)
-        print_error(EMPTY, argv, 0);
+    char *file_str;
+    char **islands_arr;
+    int size;
+    char **islands; 
+    int **matrix;
+    int **min_dist;
 
-    char **islands_arr = mx_strsplit(file_str, '\n');
+     if (n != 2) 
+        print_error(INVALID_NUMBER, NULL, 0);
+    
+    file_str = mx_file_to_str(argv[1]);
+    mx_checked(file_str, argv[1]);
+    islands_arr = mx_strsplit(file_str, '\n');
     mx_firstline_check(islands_arr[0]);
-    int size = mx_atoi(islands_arr[0]);
-    char **islands = read_arguments(islands_arr, size);
-    int **matrix = create_matrix(islands, islands_arr, size);
-    int **min_dist = crete_dist_matrix(matrix, size);
-    int **path = path_int(matrix, min_dist, 0, 4, size);
-    //final_print(islands, min_dist, matrix);
-    printf("%s\n", "s");
-    for(int n = 0; n < 2; n++) {  
-        for(int m = 0; m < size; m++) {
-            printf("%d", path[n][m]);
-        }
-        printf("%s\n", "\n");
-    }
+    size = mx_atoi(islands_arr[0]);
+    islands = read_arguments(islands_arr, size);
+    matrix = create_matrix(islands, islands_arr, size);
+    min_dist = crete_dist_matrix(matrix, size);
+    tool *d = inicialize(size, matrix, min_dist, islands);
+
+    final_print(d);
+    free(d);
     return 0;
 }
 
-// static void final_print(char **islands, int **min_dist, int **matrix) {
-//     int islands_count = mx_arr_size(islands);
-//     for(int count = 0; count < islands_count; count++){
-//         for(int i = count + 1; i < islands_count; i++) {
-//             int count_path = mx_count_short_way(matrix,min_dist,count,i,islands_count);
-//             for(int q = 0; q < count_path; q++) {
-//                 mx_printstr("========================================\n");
-//                 mx_printstr("Path: ");
-//                 mx_printstr(islands[count]);
-//                 mx_printstr(" -> ");
-//                 mx_printstr(islands[i]);
-//                 mx_printstr("\n");
-//                 mx_printstr("Route: ");
-//                 mx_print_strarr(mx_char_route(matrix, min_dist, islands, count, i), " -> ");
-//                 mx_printstr("Distance: ");
-//                 if(mx_arr_size(mx_char_route(matrix, min_dist, islands, count, i)) == 2) {
-//                     mx_printint(min_dist[count][i]);
-//                 }
-//                 else {
-//                 mx_char_dist(matrix, min_dist, islands, count, i);
-//                 mx_printstr(" = ");
-//                 mx_printint(min_dist[count][i]);
-//                 }
-//                 mx_printstr("\n");
-//                 mx_printstr("========================================\n");
-//             }
-//         }
-//     }
-// }
-
-
-int mx_count_short_way(int **matrix, int **min_dist,int begin_index, int end, int islands_count) {
-    int weight = min_dist[end][begin_index];
-    int c =  0;
-
-    for (int i = 0; i < islands_count; i++) {// просматриваем все вершины
-        if (matrix[end][i] != 0 && matrix[end][i] != 999999999) {  // если связь есть 
-            int temp = weight - matrix[end][i]; 
-            if (temp == min_dist[i][begin_index]) {   
-                c++;
+static void final_print(tool *d) {
+    int num;
+    int **path;
+    
+    for (int i = 0; i < d->size; i++){
+        for (int j = i + 1; j < d->size; j++) {
+            num = mx_count_short_ways(d, i, j);
+            path = mx_int_route(d, num, i, j);
+            for (int c = 0; c < num; c++) {
+                d->file = mx_file_to_print(d, path, c);
+                one_print(d, path[c], i, j);
+                mx_del_strarr(&d->file);
             }
         }
+    }       
+}
+
+
+static void one_print(tool *d, int *path, int i, int j) {
+    mx_printstr("========================");
+    mx_printstr("================\nPath: ");
+    mx_printstr(d->top[i]);
+    mx_printstr(" -> ");
+    mx_printstr(d->top[j]);
+    mx_printstr("\nRoute: ");
+    mx_print_strarr(d->file, " -> ");
+    mx_printstr("Distance: ");
+    if(mx_arr_size(d->file) == 2)
+        mx_printint(d->dist[i][j]);
+    else 
+        mx_print_distance(d, path, i, j);
+    mx_printstr("\n====================");
+    mx_printstr("====================\n");
+}
+
+static tool *inicialize(int s, int **m, int **d, char **t) {
+    tool *data= malloc(sizeof(tool));
+    data->size = s;
+    data->matrix = m;
+    data->dist = d;
+    data->top = t;
+    return data;
+}
+
+static int **mx_int_route(tool *d, int num, int from, int to) {
+    int **paths = malloc(num * sizeof(int *));
+    int k = 1;
+
+    for (int a = 0; a < num; a++) {
+        paths[a] = malloc((d->size + 1) * sizeof(int));
+        for (int k = 0; k < d->size + 1; k++)
+            paths[a][k] = -1;
     }
-    end--;
-    if (begin_index < end)
-        c = c + (mx_count_short_way(matrix, min_dist, begin_index, end, islands_count) - 1);
-    return c;
+    for (int a = 0; a < num; a++) {
+        int end = to;
+        paths[a][k - 1] = to;
+        while(end != from) {
+            paths[a][k] = mx_previos_top(d, from, end);
+            if (a > 0 && paths[a][k] == paths[a - 1][k]) {
+                int tmp = mx_next_top(d, from, end, paths[a][k] + 1);
+                if (tmp != -2)
+                    paths[a][k] = tmp;
+            }
+            end = paths[a][k];
+            k++;
+        } 
+        k = 1;
+    }
+    return paths;
 }
