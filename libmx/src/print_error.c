@@ -5,19 +5,19 @@ void mx_printerr(const char *s) {
     write(2, s, mx_strlen(s));
 }
 
-void print_error(enum m_eror errors, char **a, int i) {
+void print_error(enum m_eror errors, char *a, int i) {
     if (errors == INVALID_NUMBER) {
         mx_printerr("usage: ./pathfinder [filename]\n");
         exit(1);
     } else if (errors == NOT_EXIST) {
         mx_printerr("error: file ");
-        mx_printerr(a[1]);
+        mx_printerr(a);
         mx_printerr(" doesn't exist");
         mx_printerr("\n");
         exit(1);
     } else if (errors == EMPTY) {
         mx_printerr("error: file ");
-        mx_printerr(a[1]);
+        mx_printerr(a);
         mx_printerr(" is empty");
          mx_printerr("\n");
         exit(1);

@@ -34,7 +34,7 @@ typedef struct s_list {
  
 //Pathfinder
 void mx_printerr(const char *s);
-void print_error(enum m_eror errors, char **a, int i); // only for pathfinder;
+void print_error(enum m_eror errors, char *a, int i); // only for pathfinder;
 bool mx_isspace(char c);
 bool mx_isdigit(int c);
 int mx_atoi(const char *str);

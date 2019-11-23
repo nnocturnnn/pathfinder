@@ -11,6 +11,9 @@ int mx_count_short_ways(tool *d, int a, int b) {
             if (temp == d->dist[i][a])
                 c++;
         }
+        if(weight - d->matrix[b][i] == 0){
+        a++;
+        }
     }
     b--;
     if (a < b)
