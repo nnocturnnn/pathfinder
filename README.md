@@ -1,17 +1,21 @@
-pathfinder
+# pathfinder
 
-Pathfinder How to use:
+## Pathfinder How to use:
 
 make
 ./pathfinder [filename]
 
 4
-Greenland-Bananal,8
-Fraser-Greenland,10
-Bananal-Fraser,3
-Java-Fraser,5
-output:
+Greenland-Bananal,8 
 
+Fraser-Greenland,10 
+
+Bananal-Fraser,3 
+
+Java-Fraser,5 
+
+output:
+```
 ========================================
 Path: Greenland -> Bananal
 Route: Greenland -> Bananal
@@ -42,3 +46,4 @@ Path: Fraser -> Java
 Route: Fraser -> Java
 Distance: 5
 ========================================
+```
