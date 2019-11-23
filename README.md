@@ -4,17 +4,14 @@
 
 make
 ./pathfinder [filename]
-
+```
 4
 Greenland-Bananal,8 
-
 Fraser-Greenland,10 
-
 Bananal-Fraser,3 
-
 Java-Fraser,5 
-
-output:
+```
+## output:
 ```
 ========================================
 Path: Greenland -> Bananal
